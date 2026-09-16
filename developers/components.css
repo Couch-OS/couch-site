@@ -1,0 +1,26 @@
+/* Documentation examples matching the pinned Couch web control styles. */
+.component-preview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:24px 0 0}
+.component-preview-card{min-width:0;border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column}
+.component-preview-heading{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.component-preview-heading h3{margin:0;font-size:20px}
+.component-preview-heading code{font-size:11px!important}
+.component-preview-card>p{font-size:13px;line-height:1.65;margin:14px 0 20px;min-height:3.3em}
+.component-preview-surface{--preview-line:#dce1da;--preview-accent:#216450;background:#fff;color:#202b29;border:1px solid var(--preview-line);border-radius:10px;padding:18px;min-height:154px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:10px}
+.component-preview-surface h4{font-size:17px;line-height:1.3;margin:0;font-weight:650;letter-spacing:0}
+.component-preview-actions{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+.component-preview-surface button{background:#fff;color:#5d6b65;border:1px solid var(--preview-line);border-radius:8px;padding:11px 12px;min-height:44px;font:inherit;font-size:13px;cursor:pointer}
+.component-preview-surface button:hover{border-color:var(--preview-accent);color:var(--preview-accent)}
+.component-preview-surface select{width:100%;min-width:0;padding:12px;border:1px solid #c3cdc3;background:#fff;color:#202b29;border-radius:8px;font:inherit;font-size:16px;min-height:46px}
+.component-preview-surface :is(button,select):focus-visible{outline:3px solid #c37f25;outline-offset:3px}
+.component-preview-reading{flex-direction:row;align-items:center;justify-content:space-between;font-size:16px}
+.component-preview-reading strong{color:var(--preview-accent);font-variant-numeric:tabular-nums}
+.component-preview-card details{margin-top:18px}
+.component-preview-card summary{font-size:12px;cursor:pointer;color:#665b6d;padding:4px 0;min-height:32px}
+.component-preview-card summary:focus-visible,.component-preview-feedback button:focus-visible{outline:2px solid #755299;outline-offset:4px}
+.component-preview-card pre{margin:12px 0 0;padding:14px;box-sizing:border-box}
+.component-preview-card pre code{font-size:11px}
+.component-preview-feedback{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:18px}
+.component-preview-feedback p{font-size:12px;margin:0;line-height:1.6}
+.component-preview-feedback button{flex-shrink:0;border:1px solid var(--line);background:transparent;border-radius:8px;padding:10px 12px;font:inherit;font-size:12px;color:var(--ink);cursor:pointer;min-height:44px}
+@media(max-width:1100px) and (min-width:851px),(max-width:550px){.component-preview-grid{grid-template-columns:1fr}.component-preview-card>p{min-height:0}.component-preview-surface{min-height:132px}}
+@media(max-width:550px){.component-preview-card{padding:16px}.component-preview-feedback{align-items:flex-start;flex-direction:column}.component-preview-card pre{margin-inline:0}}

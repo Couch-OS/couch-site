@@ -92,7 +92,6 @@
           <article><h3>A computer to install from</h3><p>Linux x64, an Intel or Apple Silicon Mac, or Windows x64. Linux ARM64 and Windows ARM are not supported by these launchers. Linux and macOS need <code>curl</code> and <code>sha256sum</code> or <code>shasum</code>; Windows needs PowerShell 5.1 or later. ADB, Python, the MediaTek adapter and libusb are downloaded and verified by the installer itself, so nothing else has to be installed first.</p></article>
           <article><h3>Cable, network and disk space</h3><p>A USB data cable, an interactive terminal, internet access, and a Wi-Fi network the remote can see: enrolment goes over USB and the large transfers go over Wi-Fi. Leave room for the downloads and the backups, and keep the saved session folder afterwards. It is what reinstalls Couch or puts stock Android back.</p></article>
         </div>
-        <p class="hardware-foot">The <a href="https://github.com/dangerouslaser/couch/blob/main/docs/installer.md">installer guide</a> has the full prerequisites, the USB permission notes for each system, and what to do when a step stops.</p>
       </div>
     </section>
     <section class="install-band wrap" id="install" aria-labelledby="install-heading">
@@ -111,10 +110,16 @@
           <div class="command-box"><code>irm https://github.com/dangerouslaser/couch/releases/download/{{COUCH_RELEASE_TAG}}/install.ps1 | iex</code><button class="copy" type="button" data-copy="irm https://github.com/dangerouslaser/couch/releases/download/{{COUCH_RELEASE_TAG}}/install.ps1 | iex" aria-label="Copy the Windows PowerShell install command">Copy</button></div>
         </div>
       </div>
-      <p class="install-foot">Then open <a href="http://couch.local">http://couch.local</a> from any browser on your network. The remote starts on the software built into the OS image, so the version it shows right after installing is that image's, not the installer's: check <strong>Settings &rsaquo; Updates</strong> to bring it up to the current release. Prerelease under hardware validation. <a href="https://github.com/dangerouslaser/couch/releases/latest">Release notes, other platforms &amp; checksums <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></p>
+      <div class="install-foot">
+        <p class="install-next">Once installed, open <a href="http://couch.local">http://couch.local</a> in any browser on your network.</p>
+        <p>Go to <strong>Settings &rsaquo; Updates</strong> to get the current release. Your remote starts with the version included in the OS image, which may differ from the installer version.</p>
+        <p class="install-status">Prerelease &middot; Hardware validation in progress.</p>
+        <p><a href="https://github.com/dangerouslaser/couch/releases/latest">Release notes, other platforms &amp; checksums <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></p>
+      </div>
     </section>
   </main>
   <footer class="wrap"><span class="brand">couch.</span><p>An independent project for the Sanytron Astrion HA100.<br>Not affiliated with the device or integration manufacturers.</p><div class="licenses"><a href="assets/INTER-LICENSE.txt">Inter font license</a><a href="assets/lucide/LICENSE">Lucide icon license</a><a href="wasm/LATO-OFL.txt">Lato font license</a><a href="credits.html">Artwork credits</a></div></footer>
+<script src="headline.js" defer></script>
 <script src="demo.js" defer></script>
 </body>
 </html>

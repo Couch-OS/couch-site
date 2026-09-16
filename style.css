@@ -87,7 +87,11 @@
 .copy:hover{background:rgba(255,255,255,.22)}
 .copy:focus-visible{outline:2px solid #b79fd0;outline-offset:2px}
 .copy.copied{background:#3c7a4e;border-color:#3c7a4e}
-.install-foot{font-size:12px;color:var(--muted);margin:2px 0 0}
+.install-foot{max-width:65ch;font-size:13px;line-height:1.8;color:var(--muted);margin:2px 0 0}
+.install-foot p{margin:0}
+.install-foot p+p{margin-top:12px}
+.install-foot .install-next{font-size:15px;color:var(--ink)}
+.install-foot .install-status{font-size:12px;margin-top:20px}
 .install-foot a{text-decoration:underline;text-underline-offset:4px}.install-foot a:hover{color:#755299}.install-foot .icon{margin-left:4px}
 @media(max-width:850px){.install-band{padding-top:40px}.command-box code{font-size:12px}}
 
@@ -103,7 +107,7 @@
 .hardware>*{min-width:0}
 .hardware-body{display:grid;gap:24px}
 .hardware-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-.hardware-grid article{border-top:1px solid var(--line);padding-top:20px;min-width:0}
+.hardware-grid article{padding-top:20px;min-width:0}
 .hardware-grid h3{font-size:18px;letter-spacing:-.5px;font-weight:600;margin:0 0 12px}
 .hardware-grid p{font-size:13px;line-height:1.8;color:var(--muted);margin:0}
 .hardware-grid code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:var(--ink);overflow-wrap:anywhere}
@@ -123,3 +127,10 @@
 #demo-load:hover{background:#2a282e;color:#fff}
 #demo-load:focus-visible{outline:2px solid #b18ae6;outline-offset:2px}
 @media(prefers-reduced-motion:reduce){#demo-load{transition:none}}
+
+/* Reserve the final phrase's space while the integration names scroll. */
+#headline em{position:relative;display:inline-block}
+#headline em.headline-rolling{color:transparent}
+.headline-reel{position:absolute;inset:0;overflow:hidden;color:#82718f;pointer-events:none}
+.headline-track{display:block;will-change:transform}
+.headline-word{display:flex;align-items:center;white-space:nowrap;line-height:1.02}

@@ -1,0 +1,55 @@
+<section class="component-previews" aria-labelledby="component-previews-title" data-component-previews>
+  <h2 id="component-previews-title">Try the components</h2>
+  <p>Interactive examples of Couch’s web controls, using sample data. Try a command, change the power state or choose an input. Everything stays in this page; no device is connected. Layout on the remote may differ.</p>
+  <div class="component-preview-grid">
+    <section class="component-preview-card" aria-labelledby="command-preview-title">
+      <div class="component-preview-heading"><h3 id="command-preview-title">Command group</h3><code>command_group</code></div>
+      <p>Buttons for the commands your integration declares.</p>
+      <div class="component-preview-surface">
+        <h4>Volume</h4>
+        <div class="component-preview-actions"><button type="button" data-volume="5">Volume up</button><button type="button" data-volume="-5">Volume down</button></div>
+      </div>
+      <details><summary>View declaration</summary><pre><code class="language-json">{
+  "kind": "command_group",
+  "title": "Volume",
+  "commands": [
+    "volume-up",
+    "volume-down"
+  ]
+}</code></pre></details>
+    </section>
+    <section class="component-preview-card" aria-labelledby="status-preview-title">
+      <div class="component-preview-heading"><h3 id="status-preview-title">Status text</h3><code>status_text</code></div>
+      <p>A read-only value. Try the volume buttons to see it change.</p>
+      <div class="component-preview-surface component-preview-reading"><span>Volume</span><strong data-volume-status>35%</strong></div>
+      <details><summary>View declaration</summary><pre><code class="language-json">{
+  "kind": "status_text",
+  "label": "Volume",
+  "field": "volume"
+}</code></pre></details>
+    </section>
+    <section class="component-preview-card" aria-labelledby="toggle-preview-title">
+      <div class="component-preview-heading"><h3 id="toggle-preview-title">Toggle</h3><code>toggle</code></div>
+      <p>A button that sends the command for the opposite state.</p>
+      <div class="component-preview-surface"><h4>Power</h4><button type="button" data-power>Turn off</button></div>
+      <details><summary>View declaration</summary><pre><code class="language-json">{
+  "kind": "toggle",
+  "label": "Power",
+  "state": "on",
+  "on": "power-on",
+  "off": "power-off"
+}</code></pre></details>
+    </section>
+    <section class="component-preview-card" aria-labelledby="input-preview-title">
+      <div class="component-preview-heading"><h3 id="input-preview-title">Input selector</h3><code>input_selector</code></div>
+      <p>A list of sources returned by your integration.</p>
+      <div class="component-preview-surface"><h4><label for="preview-input">Source</label></h4><div class="component-preview-actions"><button type="button" data-refresh-inputs>Refresh inputs</button><select id="preview-input" data-input><option value="">Choose an input</option><option value="hdmi1">HDMI 1</option><option value="hdmi2">HDMI 2</option><option value="bluetooth">Bluetooth</option></select></div></div>
+      <details><summary>View declaration</summary><pre><code class="language-json">{
+  "kind": "input_selector",
+  "label": "Source"
+}</code></pre></details>
+    </section>
+  </div>
+  <div class="component-preview-feedback"><p role="status" aria-live="polite" aria-atomic="true" data-preview-status>Sample receiver ready. Volume 35%; power on.</p><button type="button" data-preview-reset>Reset demo</button></div>
+  <noscript><p>Enable JavaScript to try these controls. The previews and declarations are still available below.</p></noscript>
+</section>

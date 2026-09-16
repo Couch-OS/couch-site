@@ -76,6 +76,7 @@ jobs:
           SITE_DIRECTORY="$GITHUB_WORKSPACE/dist" COUCH_SOURCE="$GITHUB_WORKSPACE/couch" NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/battery-preview.cjs
           SITE_DIRECTORY="$GITHUB_WORKSPACE/dist" COUCH_SOURCE="$GITHUB_WORKSPACE/couch" NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/site-usage.cjs
           SITE_DIRECTORY="$GITHUB_WORKSPACE/dist" COUCH_SOURCE="$GITHUB_WORKSPACE/couch" NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/site-developers.cjs
+          NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/site-components.cjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
