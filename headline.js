@@ -43,12 +43,11 @@
     });
     headline.classList.add('headline-rolling');
     const steps = names.length + 1;
-    const frames = [{transform:'translateY(0)',offset:0}];
-    for (let i = 1; i <= steps; i++) {
-      frames.push({transform:`translateY(-${i * height}px)`,offset:(i - .35) / steps});
-      frames.push({transform:`translateY(-${i * height}px)`,offset:i / steps});
-    }
-    animation = track.animate(frames, {duration:3300, delay:350, easing:'linear', fill:'both'});
+    // One continuous movement avoids stopping and restarting at every name.
+    animation = track.animate([
+      {transform:'translate3d(0, 0, 0)'},
+      {transform:`translate3d(0, -${steps * height}px, 0)`},
+    ], {duration:4200, delay:350, easing:'cubic-bezier(.35, 0, .25, 1)', fill:'both'});
     animation.finished.then(finish, () => {});
     motion.addEventListener('change', finish);
     window.addEventListener('resize', finish, {once:true});
