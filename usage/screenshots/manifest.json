@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "source_commit": "7608f11bf72fe1c9f45468070d9b7ab129f3b61d",
+  "renderer": "Production ui/couch-gui/ui/app.slint via preview/ WASM",
+  "fixture_source": "preview/src/demo.rs",
+  "images": [
+    {
+      "name": "thermostat",
+      "width": 480,
+      "height": 800,
+      "sha256": "6ddc11bb56377ff5e304b60b78d3d83519e42d6123bac1490f388a1a93740ef7"
+    },
+    {
+      "name": "thermostat-modes",
+      "width": 480,
+      "height": 800,
+      "sha256": "ccd38150f5e1523b083715e74bf5cfa0604006ae9e187a46ba5c88a58193d91f"
+    },
+    {
+      "name": "home",
+      "width": 480,
+      "height": 800,
+      "sha256": "5ae65704529b2ebd0070ffb3f4723e1fd3f9705ac8e4e90781c432866d3fc702"
+    },
+    {
+      "name": "room",
+      "width": 480,
+      "height": 800,
+      "sha256": "7ec642983c12e4391081ad8663392c4caf4066674fdc58cc2c26af65d28fac56"
+    },
+    {
+      "name": "brightness",
+      "width": 480,
+      "height": 800,
+      "sha256": "a5538c8a3988bbc239b4df6372d95c2121d90468718b5a4ef2d6dcc50854844c"
+    },
+    {
+      "name": "scenes",
+      "width": 480,
+      "height": 800,
+      "sha256": "79a8721a4249ff53e680c632280a09a83932575fdf305918d0ae59ac2afcdfec"
+    },
+    {
+      "name": "kodi",
+      "width": 480,
+      "height": 800,
+      "sha256": "a1e63307933e1b1492a906e17c36710870d2807f307086dea9522d4d18b6f115"
+    },
+    {
+      "name": "chapters",
+      "width": 480,
+      "height": 800,
+      "sha256": "06cbd35a5d4e3483637fc85781e5c73f792cf196b3b831712ed4467a812d6f61"
+    },
+    {
+      "name": "android-tv",
+      "width": 480,
+      "height": 800,
+      "sha256": "b40a3d24a6affc5b98d27704723075b6b5041ed921539e8951f5375785650863"
+    },
+    {
+      "name": "android-apps",
+      "width": 480,
+      "height": 800,
+      "sha256": "ce03a50258d9d27b0af0f8f8a318d6e34d8226b33843549097b46c47c03f8238"
+    },
+    {
+      "name": "webos",
+      "width": 480,
+      "height": 800,
+      "sha256": "890a78bbc0b271637d039a48495575bf9586abbd6281c28d35e591881fc67837"
+    },
+    {
+      "name": "webos-inputs",
+      "width": 480,
+      "height": 800,
+      "sha256": "42a9cc1859f776b28fa12a25bb7032aeb46720cd2bc1aeb099704afa8fcb2352"
+    },
+    {
+      "name": "apple-tv",
+      "width": 480,
+      "height": 800,
+      "sha256": "2b92a32e14c9bd716ab16e81bc23d19008a1c80c9612c018190b88c5afb1d303"
+    },
+    {
+      "name": "apple-apps",
+      "width": 480,
+      "height": 800,
+      "sha256": "bcc67be62b4e7c6d7b4195370528ef68c76f9fb10969bb6301f8b78b8f78a6a3"
+    },
+    {
+      "name": "infrared",
+      "width": 480,
+      "height": 800,
+      "sha256": "26595135d0dcc5c089fc7be8f5d9e0dfbd7fc74f7b0a1b64a4a3981e014e1f13"
+    },
+    {
+      "name": "infrared-commands",
+      "width": 480,
+      "height": 800,
+      "sha256": "8ea80dff90d64b46bec3a31b49c5292be3b16a2f7b6893a09119fc404805ff0b"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+name: Publish Couch site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Read pinned Couch source
+        id: pin
+        run: |
+          echo "repository=$(sed -n 's/^repository=//p' source-pin)" >> "$GITHUB_OUTPUT"
+          echo "commit=$(sed -n 's/^commit=//p' source-pin)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v6
+        with:
+          repository: dangerouslaser/couch
+          ref: ${{ steps.pin.outputs.commit }}
+          path: couch
+      - name: Install Rust browser target
+        run: |
+          rustup toolchain install 1.98.1 --profile minimal --target wasm32-unknown-unknown
+          rustup default 1.98.1
+      - name: Install font build dependencies
+        run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.cargo/bin/wasm-bindgen
+            couch/preview/target
+          key: ${{ runner.os }}-couch-preview-rust-1.98.1-${{ hashFiles('couch/preview/Cargo.lock') }}
+      - name: Install matching WASM binding generator
+        run: |
+          if ! command -v wasm-bindgen >/dev/null || [ "$(wasm-bindgen --version)" != 'wasm-bindgen 0.2.127' ]; then
+            cargo install wasm-bindgen-cli --version 0.2.127 --locked --force
+          fi
+      - name: Build the pinned production preview
+        run: scripts/build-site.sh --couch-source "$GITHUB_WORKSPACE/couch" --destination "$GITHUB_WORKSPACE/dist"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install browser checks
+        run: |
+          npm install --prefix "$RUNNER_TEMP/preview-browser" --no-package-lock --no-save playwright@1.57.0
+          "$RUNNER_TEMP/preview-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify landing demo and local fixtures
+        run: |
+          python3 -m http.server 8098 --directory dist > "$RUNNER_TEMP/site-server.log" 2>&1 &
+          site_server_pid=$!
+          trap 'kill "$site_server_pid"' EXIT
+          SITE_DIRECTORY="$GITHUB_WORKSPACE/dist" COUCH_SOURCE="$GITHUB_WORKSPACE/couch" NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/site-demo.cjs
+          SITE_DIRECTORY="$GITHUB_WORKSPACE/dist" COUCH_SOURCE="$GITHUB_WORKSPACE/couch" NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/ha-preview.cjs
+          SITE_DIRECTORY="$GITHUB_WORKSPACE/dist" COUCH_SOURCE="$GITHUB_WORKSPACE/couch" NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/site-usage.cjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4
