@@ -39,6 +39,10 @@ jobs:
           rustup default 1.98.1
       - name: Install font build dependencies
         run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
+      - name: Install documentation renderer
+        run: |
+          python3 -m venv "$RUNNER_TEMP/site-docs"
+          "$RUNNER_TEMP/site-docs/bin/pip" install --requirement requirements-docs.txt
       - uses: actions/cache@v4
         with:
           path: |
@@ -53,7 +57,7 @@ jobs:
             cargo install wasm-bindgen-cli --version 0.2.127 --locked --force
           fi
       - name: Build the pinned production preview
-        run: scripts/build-site.sh --couch-source "$GITHUB_WORKSPACE/couch" --destination "$GITHUB_WORKSPACE/dist"
+        run: PYTHON="$RUNNER_TEMP/site-docs/bin/python" scripts/build-site.sh --couch-source "$GITHUB_WORKSPACE/couch" --destination "$GITHUB_WORKSPACE/dist"
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -71,6 +75,7 @@ jobs:
           SITE_DIRECTORY="$GITHUB_WORKSPACE/dist" COUCH_SOURCE="$GITHUB_WORKSPACE/couch" NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/android-media-preview.cjs
           SITE_DIRECTORY="$GITHUB_WORKSPACE/dist" COUCH_SOURCE="$GITHUB_WORKSPACE/couch" NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/battery-preview.cjs
           SITE_DIRECTORY="$GITHUB_WORKSPACE/dist" COUCH_SOURCE="$GITHUB_WORKSPACE/couch" NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/site-usage.cjs
+          SITE_DIRECTORY="$GITHUB_WORKSPACE/dist" COUCH_SOURCE="$GITHUB_WORKSPACE/couch" NODE_PATH="$RUNNER_TEMP/preview-browser/node_modules" node tools/tests/site-developers.cjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
