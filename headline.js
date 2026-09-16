@@ -14,13 +14,15 @@
   reel.setAttribute('aria-hidden', 'true');
   const track = document.createElement('span');
   track.className = 'headline-track';
-  [finalText, ...names, finalText].forEach(text => {
+  ['', ...names, finalText].forEach(text => {
     const line = document.createElement('span');
     line.className = 'headline-word';
     line.textContent = text;
     track.append(line);
   });
   reel.append(track);
+  // Keep the opening blank while fonts load and the reel is measured.
+  headline.classList.add('headline-rolling');
   let animation;
   const finish = () => {
     animation?.cancel();
@@ -30,7 +32,7 @@
     window.removeEventListener('resize', finish);
   };
   const start = () => {
-    if (motion.matches || !headline.isConnected) return;
+    if (motion.matches || !headline.isConnected) { finish(); return; }
     headline.append(reel);
     const height = headline.getBoundingClientRect().height;
     track.querySelectorAll('.headline-word').forEach(line => {
@@ -41,7 +43,6 @@
       const width = text.getBoundingClientRect().width;
       if (width > headline.clientWidth) line.style.fontSize = `${parseFloat(getComputedStyle(headline).fontSize) * headline.clientWidth / width}px`;
     });
-    headline.classList.add('headline-rolling');
     const steps = names.length + 1;
     // One continuous movement avoids stopping and restarting at every name.
     animation = track.animate([

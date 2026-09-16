@@ -52,9 +52,12 @@ const base = process.env.SITE_URL || 'http://127.0.0.1:8098/';
     for (const width of [1440, 1000, 850, 390, 320]) {
       await page.setViewportSize({width, height:1000});
       await page.goto(base);
-      await page.waitForSelector('.headline-rolling');
+      await page.waitForSelector('.headline-reel');
       const box = await page.locator('#headline').boundingBox();
       assert.equal(await page.locator('.headline-word').count(), 16);
+      assert.equal(await page.locator('.headline-word').first().textContent(), '');
+      assert.equal(await page.locator('.headline-word').last().textContent(), 'universal remote.');
+      assert.equal(await page.locator('.headline-word').filter({hasText:'universal remote.'}).count(), 1);
       assert.match(await page.locator('#headline').ariaSnapshot(), /Linux for your universal remote\./);
       const fits = await page.locator('.headline-word').evaluateAll(lines => lines.every(line => line.scrollWidth <= line.clientWidth + 1));
       assert.equal(fits, true, `headline names fit at ${width}`);
