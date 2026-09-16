@@ -6,6 +6,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
+from render_developer_docs import render as render_developer_docs
+
 ROOT = Path(__file__).resolve().parents[1]
 TAG = re.compile(r"v[0-9]+\.[0-9]+\.[0-9]+-alpha\.[0-9]{8}\.[0-9]+$")
 
@@ -44,6 +46,7 @@ def render(source, destination, couch):
         raise ValueError("destination must not be the Couch checkout, its ancestor, or its child")
     if destination == source or source.is_relative_to(destination):
         raise ValueError("destination must not replace the site source or its ancestor")
+    values = pin()
     tag = checked_source(couch)
     if destination.exists():
         shutil.rmtree(destination)
@@ -60,6 +63,12 @@ def render(source, destination, couch):
     leftover = [p for p in destination.rglob("*.html") if "{{COUCH_RELEASE_" in p.read_text(encoding="utf-8")]
     if leftover:
         raise ValueError("unrendered release token: " + str(leftover[0]))
+    render_developer_docs(
+        couch,
+        destination,
+        values["repository"].removesuffix(".git"),
+        values["commit"],
+    )
     return tag
 
 
