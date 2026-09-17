@@ -21,6 +21,9 @@ GITHUB_MAIN = "https://github.com/Couch-OS/couch/"
 # Couch Markdown written before the repository moved still links here. GitHub
 # redirects it, but those links must be pinned like current ones.
 LEGACY_GITHUB_MAIN = "https://github.com/dangerouslaser/couch/"
+# Where "the project on GitHub" points: the organization, not one repository.
+# Links to particular content keep using the pinned source repository.
+GITHUB_ORGANIZATION = "https://github.com/couch-os"
 
 
 @dataclass(frozen=True)
@@ -161,11 +164,11 @@ def _template(
 <link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="preload" href="../assets/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="style.css">{component_styles}<link rel="canonical" href="{canonical}">{noindex}</head>
 <body><a class="skip" href="#main">Skip to content</a>
-<header class="topbar wrap"><a class="brand" href="../" aria-label="Couch home">couch.</a><nav aria-label="Main navigation"><a href="../integrations.html">Integrations</a><a href="../usage/">Using Couch</a><a href="index.html" aria-current="page">Developers</a><a href="{repository}">GitHub <span aria-hidden="true">↗</span></a></nav></header>
+<header class="topbar wrap"><a class="brand" href="../" aria-label="Couch home">couch.</a><nav aria-label="Main navigation"><a href="../integrations.html">Integrations</a><a href="../usage/">Using Couch</a><a href="index.html" aria-current="page">Developers</a><a href="{GITHUB_ORGANIZATION}">GitHub <span aria-hidden="true">↗</span></a></nav></header>
 {preview_banner}<main id="main" class="developer-shell wrap">
 <aside class="developer-sidebar" aria-label="Developer documentation"><p class="eyebrow">DEVELOPER PREVIEW</p><a class="developer-home" href="index.html">Integration packages</a>{search}<nav aria-label="Developer topics">{_nav(pages, page.slug)}</nav></aside>
 <article class="developer-copy">{content}{cards}<footer class="developer-source"><p>Documentation source at <code>{html.escape(commit[:12])}</code></p><div><a href="{source}">View Markdown</a><a href="{edit}">Suggest an edit</a></div></footer></article>
-</main><footer class="wrap"><a class="brand" href="../">couch.</a><p>An independent project for the Sanytron Astrion HA100.<br>Developer preview; interfaces may change before release.</p><div class="licenses"><a href="../credits.html">Artwork &amp; licenses</a><a href="{repository}">Project source</a></div></footer>
+</main><footer class="wrap"><a class="brand" href="../">couch.</a><p>An independent project for the Sanytron Astrion HA100.<br>Developer preview; interfaces may change before release.</p><div class="licenses"><a href="../credits.html">Artwork &amp; licenses</a><a href="{GITHUB_ORGANIZATION}">Project source</a></div></footer>
 <script src="docs.js" defer></script>{component_script}</body></html>'''
 
 
