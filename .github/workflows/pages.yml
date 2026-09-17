@@ -30,7 +30,7 @@ jobs:
           echo "commit=$(sed -n 's/^commit=//p' source-pin)" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v6
         with:
-          repository: dangerouslaser/couch
+          repository: Couch-OS/couch
           ref: ${{ steps.pin.outputs.commit }}
           path: couch
       - name: Install Rust browser target
