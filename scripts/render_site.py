@@ -10,7 +10,12 @@ from pathlib import Path
 from render_developer_docs import render as render_developer_docs
 
 ROOT = Path(__file__).resolve().parents[1]
-TAG = re.compile(r"v[0-9]+\.[0-9]+\.[0-9]+-alpha\.[0-9]{8}\.[0-9]+$")
+# Couch promotes releases under two tag shapes: dated alphas from the couch
+# repository itself, and semver installer releases from couch-installer
+# (its own tag scheme, installer-vX.Y.Z).
+DATED_ALPHA_TAG = re.compile(r"v[0-9]+\.[0-9]+\.[0-9]+-alpha\.[0-9]{8}\.[0-9]+$")
+INSTALLER_TAG = re.compile(r"installer-v[0-9]+\.[0-9]+\.[0-9]+$")
+INSTALLER_TAG_PREFIX = "installer-v"
 # GitHub repository that publishes the installer launchers. Couch records it in
 # tools/release/installer-repository.txt; commits older than that file published
 # from dangerouslaser/couch.
@@ -55,9 +60,16 @@ def checked_source(path):
     if dirty:
         raise ValueError("Couch checkout has tracked changes; use a clean checkout at source-pin")
     release = (path / "tools/release/current-release.txt").read_text(encoding="utf-8").strip()
-    if not TAG.fullmatch(release):
+    if not (DATED_ALPHA_TAG.fullmatch(release) or INSTALLER_TAG.fullmatch(release)):
         raise ValueError("Couch current-release.txt is not a promotion release tag: " + release)
     return release, release_repository(path)
+
+
+def release_version(tag):
+    """The user-visible version for a release tag, without its tag prefix."""
+    if INSTALLER_TAG.fullmatch(tag):
+        return tag[len(INSTALLER_TAG_PREFIX):]
+    return tag[1:]
 
 
 def render(source, destination, couch):
@@ -78,7 +90,7 @@ def render(source, destination, couch):
             continue
         text = path.read_text(encoding="utf-8")
         text = text.replace("https://dangerouslaser.github.io/couch", "https://couch-os.dev")
-        text = text.replace("{{COUCH_RELEASE_TAG}}", tag).replace("{{COUCH_RELEASE_VERSION}}", tag[1:])
+        text = text.replace("{{COUCH_RELEASE_TAG}}", tag).replace("{{COUCH_RELEASE_VERSION}}", release_version(tag))
         text = text.replace("{{COUCH_RELEASE_REPOSITORY}}", repository)
         leftover = TOKEN.search(text)
         if leftover:
