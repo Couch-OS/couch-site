@@ -9,8 +9,11 @@ build. No device UI is copied here.
 `source-pin` records the Couch repository and exact full commit used for a
 site build. Update it only with a reviewed Couch commit. `index.html` uses
 release placeholders that `scripts/render_site.py` fills from the pinned
-checkout's `tools/release/current-release.txt`; do not put a release tag in the
-site source. The developer knowledge base follows the same rule: its canonical
+checkout: the tag from `tools/release/current-release.txt`, and the GitHub
+repository that publishes the installer from
+`tools/release/installer-repository.txt` (`dangerouslaser/couch` when the pinned
+commit predates that file). Do not put a release tag or release repository in
+the site source. The developer knowledge base follows the same rule: its canonical
 Markdown lives in the pinned checkout under `docs/development/`, and the build
 renders that exact revision into `developers/`. A Couch documentation change is
 published only after this repository deliberately advances `source-pin`.
