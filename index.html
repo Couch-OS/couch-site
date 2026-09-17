@@ -21,7 +21,7 @@
   "operatingSystem": "Linux",
   "softwareVersion": "{{COUCH_RELEASE_VERSION}}",
   "softwareRequirements": "Sanytron Astrion HA100 remote",
-  "codeRepository": "https://github.com/dangerouslaser/couch",
+  "codeRepository": "https://github.com/Couch-OS/couch",
   "license": "https://www.gnu.org/licenses/gpl-3.0.html",
   "isAccessibleForFree": true
 }
@@ -31,7 +31,7 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="topbar wrap">
     <a class="brand" href="./" aria-label="Couch home">couch.</a>
-    <nav aria-label="Main navigation"><a href="integrations.html">Integrations</a><a href="usage/">Using Couch</a><a href="developers/">Developers</a><a href="https://github.com/dangerouslaser/couch">GitHub <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></nav>
+    <nav aria-label="Main navigation"><a href="integrations.html">Integrations</a><a href="usage/">Using Couch</a><a href="developers/">Developers</a><a href="https://github.com/Couch-OS/couch">GitHub <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></nav>
   </header>
   <main id="main">
     <section class="hero wrap" aria-labelledby="headline">
@@ -39,7 +39,7 @@
         <h1 id="headline">Linux for your<br><em>universal remote.</em></h1>
         <p class="lede">Control lights, media players, TVs,<br>and receivers from one remote.</p>
         <p class="explain">Couch replaces Android on the HA100 with a custom Linux kernel, Rust integrations, and a Slint touchscreen interface.</p>
-        <div class="actions"><a class="button" href="#install">Install Couch <span class="icon icon-arrow-down" aria-hidden="true"></span></a><a class="text-link" href="https://github.com/dangerouslaser/couch">View source <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></div>
+        <div class="actions"><a class="button" href="#install">Install Couch <span class="icon icon-arrow-down" aria-hidden="true"></span></a><a class="text-link" href="https://github.com/Couch-OS/couch">View source <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></div>
         <p class="development">PRERELEASE <span>Installs, backs up Android, and restores stock Android over Wi-Fi. Hardware validation is ongoing on development units.</span></p>
       </div>
       <figure class="preview">
@@ -69,8 +69,8 @@
       <div class="stack-heading"><div><p class="eyebrow">THE CODEBASE</p><h2 id="stack-title">A dedicated Linux stack.</h2></div><p>Couch runs the remote’s UI and device clients directly on Linux. It does not load Android’s application framework, runtime, or system apps. That gives us control over the drivers, input handling, and display behavior this hardware needs.</p></div>
       <div class="stack-grid">
         <article><h3>Custom kernel</h3><p>Built from source for the HA100’s display, touchscreen, keypad, Wi-Fi, Bluetooth, motion sensor, and built-in IR transmitter. Driver fixes and wake behavior live in our codebase, so they can be tested and improved without waiting for a vendor firmware update.</p><a href="https://github.com/Couch-OS/couch-kernel">Browse the kernel source</a></article>
-        <article><h3>Rust</h3><p>Native device clients and the configuration service share typed models. Rust’s ownership checks help catch memory errors at compile time, without a garbage collector. Integrations and control logic can be tested independently of the screen.</p><a href="https://github.com/dangerouslaser/couch/tree/main/clients">Browse the Rust clients</a></article>
-        <article><h3>Slint</h3><p>A declarative UI compiled into the native remote application. Couch renders directly to the framebuffer and reads physical input events, with no browser or Android UI layer on the device. The interface is tailored to its 480 × 800 screen and buttons.</p><a href="https://github.com/dangerouslaser/couch/tree/main/ui">Browse the Slint interface</a></article>
+        <article><h3>Rust</h3><p>Native device clients and the configuration service share typed models. Rust’s ownership checks help catch memory errors at compile time, without a garbage collector. Integrations and control logic can be tested independently of the screen.</p><a href="https://github.com/Couch-OS/couch/tree/main/clients">Browse the Rust clients</a></article>
+        <article><h3>Slint</h3><p>A declarative UI compiled into the native remote application. Couch renders directly to the framebuffer and reads physical input events, with no browser or Android UI layer on the device. The interface is tailored to its 480 × 800 screen and buttons.</p><a href="https://github.com/Couch-OS/couch/tree/main/ui">Browse the Slint interface</a></article>
       </div>
     </section>
     <section class="details wrap" id="details" aria-labelledby="details-title">
@@ -83,7 +83,7 @@
         <article><span class="number">05</span><h3>Sleep and wake</h3><p>The side power button sleeps and wakes the remote. The keypad power button controls your TV or activity. Room and device screens dim when idle, and lift wake is supported.</p></article>
       </div>
     </section>
-    <section class="project wrap" aria-labelledby="project-title"><div><p class="eyebrow">PROJECT STATUS</p><h2 id="project-title">Prerelease.</h2><p>The OS and integrations run on development hardware, and the installer has completed end-to-end installs from stock Android and back. Releases are published as pinned GitHub prereleases with corresponding source; hardware validation continues on development units. The application and kernel repositories contain the source, build instructions, and current development notes.</p><p class="project-contribute">Most of Couch can be worked on without owning the remote. <a href="https://github.com/dangerouslaser/couch/blob/main/CONTRIBUTING.md">Contributing</a> says what builds and tests on an ordinary machine, and the <a href="https://github.com/dangerouslaser/couch/blob/main/docs/client-sdk.md">client SDK guide</a> is the concrete path for adding support for a device you own.</p></div><div class="project-links"><a href="https://github.com/dangerouslaser/couch">Couch source <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a><a href="https://github.com/Couch-OS/couch-kernel">Linux kernel <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a><a href="https://github.com/dangerouslaser/couch/issues">Report an issue <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a><a href="https://github.com/dangerouslaser/couch/blob/main/CONTRIBUTING.md">Contribute, no hardware needed <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a><a href="https://discord.gg/KnZK6SZQhF">Join the Discord <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></div></section>
+    <section class="project wrap" aria-labelledby="project-title"><div><p class="eyebrow">PROJECT STATUS</p><h2 id="project-title">Prerelease.</h2><p>The OS and integrations run on development hardware, and the installer has completed end-to-end installs from stock Android and back. Releases are published as pinned GitHub prereleases with corresponding source; hardware validation continues on development units. The application and kernel repositories contain the source, build instructions, and current development notes.</p><p class="project-contribute">Most of Couch can be worked on without owning the remote. <a href="https://github.com/Couch-OS/couch/blob/main/CONTRIBUTING.md">Contributing</a> says what builds and tests on an ordinary machine, and the <a href="https://github.com/Couch-OS/couch/blob/main/docs/client-sdk.md">client SDK guide</a> is the concrete path for adding support for a device you own.</p></div><div class="project-links"><a href="https://github.com/Couch-OS/couch">Couch source <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a><a href="https://github.com/Couch-OS/couch-kernel">Linux kernel <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a><a href="https://github.com/Couch-OS/couch/issues">Report an issue <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a><a href="https://github.com/Couch-OS/couch/blob/main/CONTRIBUTING.md">Contribute, no hardware needed <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a><a href="https://discord.gg/KnZK6SZQhF">Join the Discord <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></div></section>
     <section class="hardware wrap" id="hardware" aria-labelledby="hardware-title">
       <div class="section-heading"><p class="eyebrow">BEFORE YOU INSTALL</p><h2 id="hardware-title">What you need.</h2></div>
       <div class="hardware-body">

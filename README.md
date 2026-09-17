@@ -2,7 +2,7 @@
 
 This is the public landing page and usage guide for Couch. It publishes at
 <https://couch-os.dev>. The production Slint interface stays in the public
-[`dangerouslaser/couch`](https://github.com/dangerouslaser/couch) repository;
+[`Couch-OS/couch`](https://github.com/Couch-OS/couch) repository;
 this repository compiles that pinned checkout to WebAssembly during a site
 build. No device UI is copied here.
 
