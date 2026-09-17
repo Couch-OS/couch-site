@@ -17,7 +17,10 @@ if markdown.__version__ != "3.8.2":
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_PATH = Path("docs/development")
 SHA = re.compile(r"[0-9a-f]{40}")
-GITHUB_MAIN = "https://github.com/dangerouslaser/couch/"
+GITHUB_MAIN = "https://github.com/Couch-OS/couch/"
+# Couch Markdown written before the repository moved still links here. GitHub
+# redirects it, but those links must be pinned like current ones.
+LEGACY_GITHUB_MAIN = "https://github.com/dangerouslaser/couch/"
 
 
 @dataclass(frozen=True)
@@ -79,10 +82,10 @@ def load_pages(couch: Path) -> list[Page]:
 
 
 def _pinned_links(rendered: str, repository: str, commit: str) -> str:
-    main = GITHUB_MAIN
     pinned = repository + "/"
-    rendered = rendered.replace(main + "blob/main/", pinned + f"blob/{commit}/")
-    rendered = rendered.replace(main + "tree/main/", pinned + f"tree/{commit}/")
+    for main in (GITHUB_MAIN, LEGACY_GITHUB_MAIN):
+        rendered = rendered.replace(main + "blob/main/", pinned + f"blob/{commit}/")
+        rendered = rendered.replace(main + "tree/main/", pinned + f"tree/{commit}/")
     rendered = re.sub(
         r'href="(?!https?://)([^"]+)\.md(#[^"]*)?"', r'href="\1.html\2"', rendered
     )
