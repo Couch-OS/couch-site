@@ -10,7 +10,12 @@
   let ready = false, asleep = false, state = {}, interacted = false, loaded = false;
   let visible = false, tourTimer, tourIndex = 0;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const scale = () => { frame.style.transform = `scale(${screen.clientWidth / 480})`; };
+  // The frame keeps its 480 x 800 layout and the page scales it down, so it
+  // cannot see how large it really is. Tell it: its tap tolerances have to
+  // be measured in the pixels a finger actually crossed.
+  let uiScale = 1;
+  const sendScale = () => { if (ready) frame.contentWindow.postMessage({couchPreview:'scale',factor:uiScale},location.origin); };
+  const scale = () => { uiScale = screen.clientWidth / 480; frame.style.transform = `scale(${uiScale})`; sendScale(); };
   new ResizeObserver(scale).observe(screen); scale();
   const send = name => {
     if (!ready) return;
@@ -70,7 +75,7 @@
   sleep.addEventListener('click',()=>{asleep=false;sleep.hidden=true;});
   addEventListener('message',event=>{
     if(event.origin!==location.origin || event.source!==frame.contentWindow) return;
-    if(event.data?.couchPreview==='ready') {ready=true;loading.hidden=true;scheduleTour();}
+    if(event.data?.couchPreview==='ready') {ready=true;loading.hidden=true;sendScale();scheduleTour();}
     if(event.data?.couchPreview==='interaction') stopTour();
     if(event.data?.couchPreview==='error') loading.textContent=event.data.message;
     if(event.data?.couchPreview==='state') {

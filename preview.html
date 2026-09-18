@@ -51,15 +51,26 @@ try {
   // The cropped browser bezel has no OK key. Let Slint select the row first,
   // then activate it. These hit bounds describe the fixed local fixture's
   // native whole-row layout (home_hub.slint and room_devices.slint).
-  let touchStart=null;
+  // This frame lays out at the device's own 480 x 800 while the page draws it
+  // scaled down, so a finger that wanders a few real pixels crosses about
+  // twice as many of these units. Measure the tap limit in the pixels the
+  // visitor actually touched, or an ordinary tap reads as a drag.
+  let touchStart=null, uiScale=1;
   const point=event=>{const r=canvas.getBoundingClientRect();return {x:(event.clientX-r.left)*480/r.width,y:(event.clientY-r.top)*800/r.height};};
   canvas.addEventListener('pointerdown',event=>{touchStart={...point(event),state:JSON.parse(state_json())};});
   canvas.addEventListener('pointerup',event=>{
     if(!touchStart)return;
     const start=touchStart,end=point(event);touchStart=null;
     if(start.state.player || start.state.chooser || start.state.tv || start.state.thermostat)return;
-    if(Math.abs(end.y-start.y)>28){remote_button(end.y<start.y?'down':'up');return;}
-    if(Math.hypot(end.x-start.x,end.y-start.y)>12 || end.x<20 || end.x>460)return;
+    // Past the tap slop it is a drag: scroll the list when it is mostly
+    // vertical, ignore it otherwise. The two cases meet, with no band in
+    // between, because a touch landing in such a gap looks like a dead screen.
+    const dx=end.x-start.x, dy=end.y-start.y;
+    if(Math.hypot(dx,dy)>16/uiScale){
+      if(Math.abs(dy)>Math.abs(dx))remote_button(dy<0?'down':'up');
+      return;
+    }
+    if(end.x<20 || end.x>460)return;
     const inRoom=start.state.room!==null;
     const top=inRoom?80:172,pitch=inRoom?115.2:114.75,height=inRoom?103.2:102.75,count=inRoom?3:4;
     const offset=end.y-top;
@@ -68,7 +79,11 @@ try {
   });
   let previous='';
   setInterval(()=>{const state=state_json();if(state!==previous){previous=state;const parsed=JSON.parse(state);transition(parsed);send('state',{state:parsed});}},32);
-  addEventListener('message',event=>{if(event.origin===location.origin && event.source===parent && event.data?.couchPreview==='button') {capture();remote_button(event.data.name);}});
+  addEventListener('message',event=>{
+    if(event.origin!==location.origin || event.source!==parent)return;
+    if(event.data?.couchPreview==='button'){capture();remote_button(event.data.name);}
+    if(event.data?.couchPreview==='scale' && event.data.factor>0)uiScale=event.data.factor;
+  });
   let lastWheel=0;
   document.querySelector('canvas').addEventListener('wheel',event=>{event.preventDefault();if(Date.now()-lastWheel>150){remote_button(event.deltaY>0?'down':'up');lastWheel=Date.now();}},{passive:false});
 } catch(error) {send('error',{message:'The interactive preview could not load. Please reload or try a current browser.'}); console.error(error);}
