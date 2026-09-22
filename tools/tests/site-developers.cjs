@@ -51,7 +51,7 @@ const minimumCodeBlocks={'':1,'getting-started.html':4,'protocol.html':5,'compon
   await page.setViewportSize({width:1440,height:1000});
   await page.goto(new URL('developers/',base).href);
   const cards=page.locator('.developer-card');
-  assert.equal(await cards.count(),6,'index exposes every topic');
+  assert.equal(await cards.count(),7,'index exposes every topic');
   const search=page.getByRole('searchbox',{name:'Find a topic'});
   await search.fill('chroot');
   assert.equal(await page.locator('.developer-card:visible').count(),1,'search narrows topics');
